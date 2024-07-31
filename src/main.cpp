@@ -1,8 +1,10 @@
-#include "app.h"
+#include "app.hpp"
 
 int main() {
   App app;
+
   app.init();
+  app.setupScreen();
 
   // // mvprintw(row / 2, (col - strlen("Hello, ncurses!")) / 2, "Hello,
   // ncurses!");
@@ -24,7 +26,7 @@ int main() {
 
   // wrefresh(win);
 
-  // getch();
-  // endwin();
+  getch();
+  endwin();
   return 0;
 }
