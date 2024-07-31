@@ -1,4 +1,4 @@
-#include "tool_bar.h"
+#include "toolbar.h"
 
 ToolBar::ToolBar() : toolbarWin(nullptr) {}
 

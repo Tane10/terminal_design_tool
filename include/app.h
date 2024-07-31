@@ -1,7 +1,8 @@
 #ifndef APP_H
 #define APP_H
+#include "events_handler.h"
 #include "globals.h"
-#include "tool_bar.h"
+#include "toolbar.h"
 #include <iostream>
 #include <ncurses.h>
 
@@ -11,11 +12,16 @@ private:
   WINDOW *mainWin;
 
 public:
-  App();
+  ToolBar toolbar;
+  EventsHandler eventsHandler;
+
+  App(ToolBar tb, EventsHandler eh);
   ~App();
 
   void init();
   void setupScreen();
+
+  void draw();
 };
 
 #endif

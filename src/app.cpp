@@ -1,12 +1,15 @@
 #include "app.h"
 
-App::App() : mainWin(nullptr) {}
+App::App(ToolBar tb, EventsHandler eh) : mainWin(nullptr) {
+  toolbar = tb;
+  eventsHandler = eh;
+}
 
 App::~App() {
   if (mainWin != nullptr) {
     delwin(mainWin);
   }
-  endwin(); // End ncurses mode
+  // endwin(); // End ncurses mode
 }
 
 void App::init() {
@@ -35,7 +38,22 @@ void App::init() {
   std::cout << "Screen dimensions: " << maxRows << "x" << maxCols << std::endl;
 }
 
-void App::setupScreen() {
-  ToolBar toolBar;
-  toolBar.init();
+void App::setupScreen() { toolbar.init(); }
+
+void App::draw() {
+  int flag = 1;
+  int ch = getch();
+
+  while (flag) {
+
+    // TODO: make quit command ctrl + c or :exit
+    // ch == q
+    if (ch == 113) {
+      flag = 0;
+    }
+
+    eventsHandler.handleMouse();
+  }
+
+  endwin();
 }

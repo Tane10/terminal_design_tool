@@ -1,11 +1,12 @@
 #include "main.h"
 
 int main() {
-  App app;
+  ToolBar toolBar;
+  EventsHandler eventsHandler;
+
+  App app(toolBar, eventsHandler);
   app.init();
   app.setupScreen();
-
-  getch();
-  endwin();
+  app.draw();
   return 0;
 }
