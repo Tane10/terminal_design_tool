@@ -8,13 +8,16 @@ ToolBar::~ToolBar() {
   }
 }
 
-// void ToolBar::init() {
-//   toolbarWin = newwin(maxRows, maxCols, 1, 1);
-//   if (toolbarWin == nullptr) {
-//     std::cerr << "ERROR creating window" << std::endl;
-//     exit(EXIT_FAILURE);
-//   }
+void ToolBar::init() {
+  toolbarWin = newwin(5, maxCols, maxRows - 5, 0);
+  if (toolbarWin == nullptr) {
+    std::cerr << "ERROR creating window" << std::endl;
+    exit(EXIT_FAILURE);
+  }
 
-//   box(toolbarWin, 0, 0);
-//   wrefresh(toolbarWin);
-// }
+  refresh();
+
+  box(toolbarWin, 0, 0);
+  mvwprintw(toolbarWin, 1, 1, "This is toolbar window");
+  wrefresh(toolbarWin);
+}

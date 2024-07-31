@@ -6,9 +6,13 @@
 #include <ncurses.h>
 
 class App {
+
+private:
+  WINDOW *mainWin;
+
 public:
-  // App(/* args */);
-  // ~App();
+  App();
+  ~App();
 
   void init();
   void setupScreen();

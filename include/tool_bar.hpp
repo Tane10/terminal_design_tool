@@ -1,6 +1,6 @@
 #ifndef TOOL_BAR_H
 #define TOOL_BAR_H
-// #include "globals.hpp"
+#include "globals.hpp"
 #include <iostream>
 #include <ncurses.h>
 

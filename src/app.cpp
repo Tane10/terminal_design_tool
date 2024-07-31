@@ -1,25 +1,41 @@
 #include "app.hpp"
 
-// Undefined symbols for architecture arm64:
-//   "_maxCols", referenced from:
-//       App::init() in app-d23f1a.o
-//   "_maxRows", referenced from:
-//       App::init() in app-d23f1a.o
-// ld: symbol(s) not found for architecture arm64
-// clang: error: linker command failed with exit code 1 (use -v to see
-// invocation) make: *** [build] Error 1
+App::App() : mainWin(nullptr) {}
+
+App::~App() {
+  if (mainWin != nullptr) {
+    delwin(mainWin);
+  }
+  endwin(); // End ncurses mode
+}
 
 void App::init() {
-  initscr();                          // Start curses mode
-  cbreak();                           // Line buffering disabled
-  noecho();                           // Don't echo() while we do getch
-  keypad(stdscr, TRUE);               // Enable function keys (like arrows)
-  getmaxyx(stdscr, maxRows, maxCols); // Get the number of rows and columns
+  initscr();            // Start curses mode
+  cbreak();             // Line buffering disabled
+  noecho();             // Don't echo() while we do getch
+  keypad(stdscr, TRUE); // Enable function keys (like arrows)
+
+  if (maxCols == 0 && maxRows == 0) {
+    getmaxyx(stdscr, maxRows, maxCols); // Get the number of rows and columns
+  }
+
+  // required
+  refresh();
+
+  mainWin = newwin(0, 0, 0, 0);
+  if (mainWin == nullptr) {
+    std::cerr << "ERROR creating window" << std::endl;
+    exit(EXIT_FAILURE);
+  }
+
+  box(mainWin, 0, 0);
+  mvwprintw(mainWin, 1, 1, "This is main window");
+  wrefresh(mainWin);
+
+  std::cout << "Screen dimensions: " << maxRows << "x" << maxCols << std::endl;
 }
 
 void App::setupScreen() {
   ToolBar toolBar;
-  // if (!maxRows || !maxCols) {
-  // toolBar.init();
-  // }
+  toolBar.init();
 }
