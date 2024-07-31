@@ -1,6 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
-#include "app.hpp"
+#include "app.h"
 #include <ncurses.h>
 
 #endif

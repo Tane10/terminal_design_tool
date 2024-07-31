@@ -1,4 +1,4 @@
-#include "app.hpp"
+#include "app.h"
 
 App::App() : mainWin(nullptr) {}
 

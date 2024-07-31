@@ -1,7 +1,7 @@
 #ifndef APP_H
 #define APP_H
-#include "globals.hpp"
-#include "tool_bar.hpp"
+#include "globals.h"
+#include "tool_bar.h"
 #include <iostream>
 #include <ncurses.h>
 

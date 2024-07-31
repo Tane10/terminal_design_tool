@@ -1,4 +1,4 @@
-#include "main.hpp"
+#include "main.h"
 
 int main() {
   App app;
