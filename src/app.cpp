@@ -45,32 +45,39 @@ void App::setupScreen() { toolbar.init(); }
 
 void App::draw() {
   bool flag = true;
+  std::array<int, 3> mousePos = {0, 0, 0};
+
   while (flag) {
     MEVENT event;
     int ch = getch();
 
-    // TODO: make quit command ctrl + c or :exit
-    // ch == q
-    if (ch == 113) {
+    // 27 (base10) -> ESC key
+    if (ch == 27) {
       flag = false;
     }
 
-    // mouse press => ch = 409 => KEY_MOUSE => 0631(octal base-8) = 409(base_10)
+    // mouse press => KEY_MOUSE => ch = 409(base_10) = 0631(base-8)
     if (ch == KEY_MOUSE) {
-      if (getmouse(&event) == OK) {
-        std::cout << "We pushed the button" << std::endl;
+      int mouse = getmouse(&event);
+
+      if (mouse == OK) {
+        // Mouse events are check with Bitwise AND operation
+        if (event.bstate & BUTTON1_CLICKED) {
+          std::cout << "clicked the button" << std::endl;
+
+          std::cout << "x pos: " << event.x << "y pos: " << event.y
+                    << "z pos: " << event.z << std::endl;
+        }
+        if (event.bstate & BUTTON1_PRESSED) {
+          std::cout << "Pressed the button" << std::endl;
+        }
+        if (event.bstate & BUTTON1_RELEASED) {
+          std::cout << "Relesed the button" << std::endl;
+        }
       }
     }
 
-    //   if (getmouse(&event) == OK) {
-    //     if (event.bstate & BUTTON1_PRESSED) {
-    //       mvprintw(1, 0, "Mouse button pressed");
-    //       std::cout << "We pushed the button" << std::endl;
-    //     }
-    //   }
-    // }
-
-    eventsHandler.handleMouse();
+    // eventsHandler.handleMouse();
   }
 
   endwin();

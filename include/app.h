@@ -3,6 +3,7 @@
 #include "events_handler.h"
 #include "globals.h"
 #include "toolbar.h"
+#include <array>
 #include <iostream>
 #include <ncurses.h>
 
