@@ -4,7 +4,7 @@
 
 class EventsHandler {
 private:
-  /* data */
+    /* data */
 public:
   //   events_handler(/* args */);
   //   ~events_handler();
