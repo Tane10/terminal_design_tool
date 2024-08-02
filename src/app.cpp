@@ -21,6 +21,8 @@ void App::init() {
             NULL); // Enable mouse mask
   curs_set(0);
 
+  // startListeningForCmdKeys();
+
   if (maxCols == 0 && maxRows == 0) {
     getmaxyx(stdscr, maxRows, maxCols); // Get the number of rows and columns
   }
@@ -37,47 +39,31 @@ void App::init() {
   box(mainWin, 0, 0);
   mvwprintw(mainWin, 1, 1, "This is main window");
   wrefresh(mainWin);
+  nodelay(mainWin, TRUE); // Set the window to non-blocking mode
 
   std::cout << "Screen dimensions: " << maxRows << "x" << maxCols << std::endl;
 }
 
-void App::setupScreen() { toolbar.init(); }
+void App::setupScreen() {
+  toolbar.init();
+  toolbar.drawMenu();
+  refresh();
+}
 
 void App::draw() {
   bool flag = true;
-  std::array<int, 3> mousePos = {0, 0, 0};
+  // std::array<int, 3> mousePos = {0, 0, 0};
 
   while (flag) {
     MEVENT event;
-    int ch = getch();
+    int mainWinCh = wgetch(mainWin);
 
-    // 27 (base10) -> ESC key
-    if (ch == 27) {
-      flag = false;
-    }
+    int toolbarCh = wgetch(toolbar.getToolbarWin());
 
-    // mouse press => KEY_MOUSE => ch = 409(base_10) = 0631(base-8)
-    if (ch == KEY_MOUSE) {
-      int mouse = getmouse(&event);
+    // TODO: implement mouse event handler
+    eventsHandler.handleMouse(&event, &mainWinCh);
 
-      if (mouse == OK) {
-        // Mouse events are check with Bitwise AND operation
-        if (event.bstate & BUTTON1_CLICKED) {
-          std::cout << "clicked the button" << std::endl;
-
-          std::cout << "x pos: " << event.x << "y pos: " << event.y
-                    << "z pos: " << event.z << std::endl;
-        }
-        if (event.bstate & BUTTON1_PRESSED) {
-          std::cout << "Pressed the button" << std::endl;
-        }
-        if (event.bstate & BUTTON1_RELEASED) {
-          std::cout << "Relesed the button" << std::endl;
-        }
-      }
-    }
-
-    // eventsHandler.handleMouse();
+    eventsHandler.handleKeyEvents(&event, &mainWinCh, &flag, &toolbarCh);
   }
 
   endwin();
