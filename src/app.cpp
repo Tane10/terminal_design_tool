@@ -22,6 +22,7 @@ void App::init() {
   curs_set(0);
 
   // startListeningForCmdKeys();
+  runCocoaEventLoop();
 
   if (maxCols == 0 && maxRows == 0) {
     getmaxyx(stdscr, maxRows, maxCols); // Get the number of rows and columns

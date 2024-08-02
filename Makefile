@@ -7,7 +7,7 @@ build-cocoa:
     -L/opt/homebrew/opt/ncurses/lib \
     -lncurses \
     -framework Cocoa \
-    ./src/*.cpp ./src/*.mm \
+    ./src/*.cpp ./src/*.m \
     -o main -g
 
 build:
