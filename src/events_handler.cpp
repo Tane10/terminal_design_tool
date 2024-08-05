@@ -23,67 +23,20 @@ void EventsHandler::handleMouse(MEVENT *event, int *mainWinCh) {
   }
 }
 
-void EventsHandler::handleKeyEvents(MEVENT *event, int *mainWinCh, bool *flag,
-                                    int *toolbarCh) {
+int EventsHandler::handleKeyEvents(MEVENT *event, int *mainWinCh, bool *flag,
+                                   int *toolbarCh) {
+
+  int keyInput = 0;
+
   // exit application => ESC key
   if (*mainWinCh == 27 || *toolbarCh == 27) {
     *flag = false;
   }
 
-  if (*toolbarCh <= 49 && *toolbarCh >= 57) {
+  // checking ascii value with character literals '1' <-> '9'
+  if (*toolbarCh >= 49 && *toolbarCh <= 57) {
+    keyInput = *toolbarCh;
   }
 
-  // handle menu items selection
-  switch (*toolbarCh) {
-
-  // num key 1
-  case 49:
-    /* code */
-    break;
-
-  // num key 2
-  case 50:
-    /* code */
-    break;
-
-  // num key 3
-  case 51:
-    /* code */
-    break;
-
-  // num key 4
-  case 52:
-    /* code */
-    break;
-
-  // num key 5
-  case 53:
-    /* code */
-    break;
-
-  // num key 6
-  case 54:
-    /* code */
-    break;
-
-  // num key 7
-  case 55:
-    /* code */
-    break;
-
-  // num key 6
-  case 56:
-    /* code */
-    break;
-
-  // num key 7
-  case 57:
-    /* code */
-    break;
-
-  default:
-    break;
-  }
-
-  // std::cout << "toolbar ch: " << wgetstr << std::endl;
+  return keyInput;
 }

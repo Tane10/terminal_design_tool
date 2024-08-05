@@ -10,13 +10,23 @@ class ToolBar {
 private:
   WINDOW *toolbarWin;
 
+  using MenuItem = struct {
+    int key;
+    std::string name;
+    bool active;
+  };
+
+  std::array<MenuItem, 13> menu;
+
 public:
+  WINDOW *getToolbarWin();
+
   ToolBar(/* args */);
   ~ToolBar();
 
   void init();
   void drawMenu();
-  WINDOW *getToolbarWin();
+  void selectToolBarItem(int key);
 };
 
 #endif

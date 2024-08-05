@@ -11,8 +11,8 @@ public:
   //   ~events_handler();
   void handleMouse(MEVENT *event, int *mainWinCh);
 
-  void handleKeyEvents(MEVENT *event, int *mainWinCh, bool *flag,
-                       int *toolbarCh);
+  int handleKeyEvents(MEVENT *event, int *mainWinCh, bool *flag,
+                      int *toolbarCh);
 };
 
 #endif

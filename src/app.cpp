@@ -21,9 +21,6 @@ void App::init() {
             NULL); // Enable mouse mask
   curs_set(0);
 
-  // startListeningForCmdKeys();
-  runCocoaEventLoop();
-
   if (maxCols == 0 && maxRows == 0) {
     getmaxyx(stdscr, maxRows, maxCols); // Get the number of rows and columns
   }
@@ -52,8 +49,11 @@ void App::setupScreen() {
 }
 
 void App::draw() {
+
+  // TODO: FIXME: Onclick is casing the terminal window to close and kill
+  // application
+
   bool flag = true;
-  // std::array<int, 3> mousePos = {0, 0, 0};
 
   while (flag) {
     MEVENT event;
@@ -64,7 +64,11 @@ void App::draw() {
     // TODO: implement mouse event handler
     eventsHandler.handleMouse(&event, &mainWinCh);
 
-    eventsHandler.handleKeyEvents(&event, &mainWinCh, &flag, &toolbarCh);
+    int key =
+        eventsHandler.handleKeyEvents(&event, &mainWinCh, &flag, &toolbarCh);
+
+    // mvwprintw(mainWin, 5, 5, &keyChar);
+    toolbar.selectToolBarItem(key);
   }
 
   endwin();

@@ -1,6 +1,5 @@
 #ifndef APP_H
 #define APP_H
-#include "cmd_key_listener.h"
 #include "events_handler.h"
 #include "globals.h"
 #include "toolbar.h"
