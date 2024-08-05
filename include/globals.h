@@ -1,6 +1,6 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
-extern int maxRows;
-extern int maxCols;
+extern int maxX;
+extern int maxY;
 #endif

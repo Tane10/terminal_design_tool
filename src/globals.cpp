@@ -1,4 +1,4 @@
 #include "globals.h"
 
-int maxRows = 0;
-int maxCols = 0;
+int maxY = 0;
+int maxX = 0;

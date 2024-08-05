@@ -22,20 +22,19 @@ ToolBar::~ToolBar() {
 }
 
 void ToolBar::init() {
-
-  toolbarWin = newwin(5, maxCols, maxRows - 5, 0);
+  // *newwin(int nlines (Y), int ncols (X), int begin_y, int begin_x);
+  toolbarWin = newwin(5, maxX, maxY - 5, 0);
   if (toolbarWin == nullptr) {
     std::cerr << "ERROR creating window" << std::endl;
     exit(EXIT_FAILURE);
   }
+  // nodelay(toolbarWin, TRUE); // Set the window to non-blocking mode
 
   refresh();
 
   box(toolbarWin, 0, 0);
   mvwprintw(toolbarWin, 0, 1, "Toolbar");
   wrefresh(toolbarWin);
-
-  // nodelay(toolbarWin, TRUE); // Set the window to non-blocking mode
 }
 
 WINDOW *ToolBar::getToolbarWin() { return toolbarWin; }
@@ -61,17 +60,6 @@ void ToolBar::drawMenu() {
 }
 
 void ToolBar::selectToolBarItem(int key) {
-  // for (int i = 0; i < menu.size(); i++) {
-  //   if (key == menu[i].key) {
-  //     menu[i].active = true;
-  //   } else {
-  //     if (menu[i].active) {
-  //       menu[i].active = false;
-  //     }
-  //   }
-  // }
-  // drawMenu();
-
   for (auto &menuItem : menu) {
     if (menuItem.key == key) {
       menuItem.active = true;

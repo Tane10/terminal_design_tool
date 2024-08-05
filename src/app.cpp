@@ -9,46 +9,48 @@ App::~App() {
   if (mainWin != nullptr) {
     delwin(mainWin);
   }
-  // endwin(); // End ncurses mode
 }
 
 void App::init() {
-  initscr();            // Start curses mode
+  initscr(); // Start curses mode
+  clear();
   cbreak();             // Line buffering disabled
   noecho();             // Don't echo() while we do getch
   keypad(stdscr, TRUE); // Enable function keys (like arrows)
   mousemask(ALL_MOUSE_EVENTS | REPORT_MOUSE_POSITION,
             NULL); // Enable mouse mask
   curs_set(0);
+  // setlocale(LC_ALL, "");
+  // nodelay(mainWin, TRUE); // Set the window to non-blocking mode
+  halfdelay(1);
 
-  if (maxCols == 0 && maxRows == 0) {
-    getmaxyx(stdscr, maxRows, maxCols); // Get the number of rows and columns
+  if (maxY == 0 && maxX == 0) {
+    getmaxyx(stdscr, maxY, maxX); // Get the number of rows and columns
   }
 
   // required
   refresh();
-
-  mainWin = newwin(0, 0, 0, 0);
+  // *newwin(int nlines (Y), int ncols (X), int begin_y, int begin_x);
+  mainWin = newwin(maxY - 5, maxX, 0, 0);
   if (mainWin == nullptr) {
     std::cerr << "ERROR creating window" << std::endl;
     exit(EXIT_FAILURE);
   }
 
   box(mainWin, 0, 0);
-  mvwprintw(mainWin, 1, 1, "This is main window");
+  mvwprintw(mainWin, 0, 1, "Canvas");
   wrefresh(mainWin);
-  nodelay(mainWin, TRUE); // Set the window to non-blocking mode
-
-  std::cout << "Screen dimensions: " << maxRows << "x" << maxCols << std::endl;
 }
 
 void App::setupScreen() {
-  toolbar.init();
-  toolbar.drawMenu();
+  // toolbar.init();
+  // toolbar.drawMenu();
   refresh();
 }
 
 void App::draw() {
+
+  wnoutrefresh(mainWin);
 
   // TODO: FIXME: Onclick is casing the terminal window to close and kill
   // application
@@ -57,19 +59,43 @@ void App::draw() {
 
   while (flag) {
     MEVENT event;
-    int mainWinCh = wgetch(mainWin);
+    // int toolbarCh = wgetch(toolbar.getToolbarWin());
 
-    int toolbarCh = wgetch(toolbar.getToolbarWin());
+    // std::cout << "event-mouse: " << getmouse(&event) << std::endl;
 
-    // TODO: implement mouse event handler
-    eventsHandler.handleMouse(&event, &mainWinCh);
+    // WINDOW *toolbarWin = toolbar.getToolbarWin();
 
-    int key =
-        eventsHandler.handleKeyEvents(&event, &mainWinCh, &flag, &toolbarCh);
+    int ch = wgetch(mainWin); // Wait for an input event
+    // std::cout << "mouse: " << has_mouse() << std::endl;
 
-    // mvwprintw(mainWin, 5, 5, &keyChar);
-    toolbar.selectToolBarItem(key);
+    // if (ch == ERR) {
+    //   std::cerr << "wgetch() failed with error code: " << ch << std::endl;
+    //   // Handle the error or continue
+    //   continue;
+    // }
+
+    if (ch == KEY_MOUSE) {
+
+      std::cout << "CLOICKED" << std::endl;
+
+      if (getmouse(&event) == OK) {
+
+        std::cout << "event-mouse: " << getmouse(&event) << std::endl;
+
+        std::cout << "HEHRHEHRHE" << std::endl;
+
+        int startX, startY;
+
+        getbegyx(mainWin, startY, startX);
+
+        std::cout << "start_x: " << startX << "start_y: " << startY
+                  << std::endl;
+      }
+    }
   }
+
+  delwin(mainWin);
+  delwin(toolbar.getToolbarWin());
 
   endwin();
 }

@@ -9,10 +9,10 @@ private:
 public:
   //   events_handler(/* args */);
   //   ~events_handler();
-  void handleMouse(MEVENT *event, int *mainWinCh);
+  void handleMouse(MEVENT *event);
 
-  int handleKeyEvents(MEVENT *event, int *mainWinCh, bool *flag,
-                      int *toolbarCh);
+  // int handleKeyEvents(MEVENT *event, int *mainWinCh, bool *flag,
+  //                     int *toolbarCh);
 };
 
 #endif
