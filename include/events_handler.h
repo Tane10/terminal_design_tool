@@ -1,5 +1,6 @@
 #ifndef EVENTS_HANDLER_H
 #define EVENTS_HANDLER_H
+#include "toolbar.h"
 #include <iostream>
 #include <ncurses.h>
 
@@ -9,10 +10,9 @@ private:
 public:
   //   events_handler(/* args */);
   //   ~events_handler();
-  void handleMouse(MEVENT *event);
+  void handleMouse(MEVENT *event, int *ch, WINDOW *win);
 
-  // int handleKeyEvents(MEVENT *event, int *mainWinCh, bool *flag,
-  //                     int *toolbarCh);
+  void handleKeyEvents(ToolBar *tb, MEVENT *event, int *ch, bool *flag);
 };
 
 #endif

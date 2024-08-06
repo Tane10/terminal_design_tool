@@ -20,9 +20,7 @@ void App::init() {
   mousemask(ALL_MOUSE_EVENTS | REPORT_MOUSE_POSITION,
             NULL); // Enable mouse mask
   curs_set(0);
-  // setlocale(LC_ALL, "");
-  // nodelay(mainWin, TRUE); // Set the window to non-blocking mode
-  halfdelay(1);
+  nodelay(mainWin, TRUE); // Set the window to non-blocking mode
 
   if (maxY == 0 && maxX == 0) {
     getmaxyx(stdscr, maxY, maxX); // Get the number of rows and columns
@@ -30,6 +28,7 @@ void App::init() {
 
   // required
   refresh();
+
   // *newwin(int nlines (Y), int ncols (X), int begin_y, int begin_x);
   mainWin = newwin(maxY - 5, maxX, 0, 0);
   if (mainWin == nullptr) {
@@ -43,59 +42,30 @@ void App::init() {
 }
 
 void App::setupScreen() {
-  // toolbar.init();
-  // toolbar.drawMenu();
+  toolbar.init();
+  toolbar.drawMenu();
   refresh();
 }
 
 void App::draw() {
 
-  wnoutrefresh(mainWin);
-
-  // TODO: FIXME: Onclick is casing the terminal window to close and kill
-  // application
-
   bool flag = true;
+  WINDOW *toolbarWin = toolbar.getToolbarWin();
 
   while (flag) {
     MEVENT event;
-    // int toolbarCh = wgetch(toolbar.getToolbarWin());
+    int ch = getch(); // Wait for an input event
 
-    // std::cout << "event-mouse: " << getmouse(&event) << std::endl;
-
-    // WINDOW *toolbarWin = toolbar.getToolbarWin();
-
-    int ch = wgetch(mainWin); // Wait for an input event
-    // std::cout << "mouse: " << has_mouse() << std::endl;
-
-    // if (ch == ERR) {
-    //   std::cerr << "wgetch() failed with error code: " << ch << std::endl;
-    //   // Handle the error or continue
-    //   continue;
-    // }
-
-    if (ch == KEY_MOUSE) {
-
-      std::cout << "CLOICKED" << std::endl;
-
-      if (getmouse(&event) == OK) {
-
-        std::cout << "event-mouse: " << getmouse(&event) << std::endl;
-
-        std::cout << "HEHRHEHRHE" << std::endl;
-
-        int startX, startY;
-
-        getbegyx(mainWin, startY, startX);
-
-        std::cout << "start_x: " << startX << "start_y: " << startY
-                  << std::endl;
-      }
+    if (ch == ERR) {
+      std::cerr << "wgetch() failed with error code: " << ch << std::endl;
+      continue;
     }
+
+    eventsHandler.handleMouse(&event, &ch, mainWin);
+    eventsHandler.handleKeyEvents(&toolbar, &event, &ch, &flag);
   }
 
   delwin(mainWin);
-  delwin(toolbar.getToolbarWin());
-
+  delwin(toolbarWin);
   endwin();
 }

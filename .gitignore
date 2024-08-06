@@ -35,3 +35,5 @@
 *.dSYM
 main
 .idea
+
+.DS_Store
