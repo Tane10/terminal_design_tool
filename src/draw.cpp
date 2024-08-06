@@ -8,4 +8,4 @@ typedef struct Rect {
 /* TODO
  */
 
-void Draw::drawRect() {};
+void Draw::drawRect(int posX, int posY) {};

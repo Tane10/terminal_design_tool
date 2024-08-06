@@ -1,6 +1,6 @@
 #include "app.h"
 
-App::App(ToolBar tb, EventsHandler eh) : mainWin(nullptr) {
+App::App(ToolBar tb, EventsHandler eh) {
   toolbar = tb;
   eventsHandler = eh;
 }
@@ -61,7 +61,7 @@ void App::draw() {
       continue;
     }
 
-    eventsHandler.handleMouse(&event, &ch, mainWin);
+    eventsHandler.handleMouse(&event, &ch);
     eventsHandler.handleKeyEvents(&toolbar, &event, &ch, &flag);
   }
 

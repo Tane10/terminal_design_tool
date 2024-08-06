@@ -6,7 +6,7 @@ private:
   /* data */
 
 public:
-  void drawRect();
+  void drawRect(int posX, int posY);
   //   ~Draw();
 };
 

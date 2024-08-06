@@ -10,7 +10,7 @@
 class App {
 
 private:
-  WINDOW *mainWin;
+  // WINDOW *mainWin;
 
 public:
   ToolBar toolbar;

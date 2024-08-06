@@ -1,5 +1,5 @@
 #include "events_handler.h"
-void EventsHandler::handleMouse(MEVENT *event, int *ch, WINDOW *win) {
+void EventsHandler::handleMouse(MEVENT *event, int *ch) {
   bool isInWindow = false;
   if (*ch == KEY_MOUSE) {
 
@@ -7,8 +7,8 @@ void EventsHandler::handleMouse(MEVENT *event, int *ch, WINDOW *win) {
       int startX, startY;
       int width, height;
 
-      getbegyx(win, startY, startX);
-      getmaxyx(win, height, width);
+      getbegyx(mainWin, startY, startX);
+      getmaxyx(mainWin, height, width);
 
       if (event->x >= startX && event->x < startX + width &&
           event->y >= startY && event->y < startY + height) {
@@ -36,7 +36,7 @@ void EventsHandler::handleMouse(MEVENT *event, int *ch, WINDOW *win) {
 void EventsHandler::handleKeyEvents(ToolBar *tb, MEVENT *event, int *ch,
                                     bool *flag) {
 
-  // TOOD: FIXME: workout a way to fix the
+  // TODO: FIXME: workout a way to fix the
   // if (*toolbarCh != KEY_MOUSE) {
   //   std::cout << "\n toolbarCh: " << *toolbarCh << std::endl;
   // if (*ch == 27) {
