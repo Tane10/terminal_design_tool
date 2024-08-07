@@ -17,7 +17,8 @@ void EventsHandler::handleMouse(MEVENT *event, int *ch) {
     }
 
     if (isInWindow) {
-      if (event->bstate & BUTTON1_CLICKED) {
+
+            if (event->bstate & BUTTON1_CLICKED) {
         std::cout << "clicked the button" << std::endl;
 
         std::cout << "x pos: " << event->x << "y pos: " << event->y

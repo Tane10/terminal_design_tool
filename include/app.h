@@ -2,6 +2,7 @@
 #define APP_H
 #include "events_handler.h"
 #include "globals.h"
+#include "render_engine.h"
 #include "toolbar.h"
 #include <array>
 #include <iostream>
@@ -15,6 +16,7 @@ private:
 public:
   ToolBar toolbar;
   EventsHandler eventsHandler;
+  RenderEngine *renderEngine;
 
   App(ToolBar tb, EventsHandler eh);
   ~App();

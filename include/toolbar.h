@@ -10,7 +10,8 @@ class ToolBar {
 private:
   WINDOW *toolbarWin;
 
-  using MenuItem = struct {
+public:
+  struct MenuItem {
     int key;
     std::string name;
     bool active;
@@ -18,8 +19,9 @@ private:
 
   std::array<MenuItem, 13> menu;
 
-public:
   WINDOW *getToolbarWin();
+
+  std::array<MenuItem, 13> *getMenu();
 
   ToolBar(/* args */);
   ~ToolBar();

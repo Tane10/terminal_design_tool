@@ -6,4 +6,5 @@
 extern int maxX;
 extern int maxY;
 extern WINDOW *mainWin;
+
 #endif

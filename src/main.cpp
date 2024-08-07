@@ -1,10 +1,18 @@
 #include "main.h"
 
 int main() {
-  ToolBar toolBar;
-  EventsHandler eventsHandler;
+  ToolBar tb;
+  EventsHandler eh;
 
-  App app(toolBar, eventsHandler);
+  RenderEngine renderEngine = RenderEngine::getInstance();
+
+  State ns;
+  ns.inWindow = nullptr;
+  ns.event = nullptr;
+  ns.option = nullptr;
+  renderEngine.setEngineState(ns);
+
+  App app(tb, eh);
   app.init();
   app.setupScreen();
   app.draw();

@@ -39,6 +39,8 @@ void ToolBar::init() {
 
 WINDOW *ToolBar::getToolbarWin() { return toolbarWin; }
 
+std::array<ToolBar::MenuItem, 13> *ToolBar::getMenu() { return &menu; }
+
 void ToolBar::drawMenu() {
   int x, y;
   x = 2;

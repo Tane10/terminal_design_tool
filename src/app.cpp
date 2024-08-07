@@ -1,8 +1,11 @@
 #include "app.h"
 
 App::App(ToolBar tb, EventsHandler eh) {
+
+  RenderEngine re = RenderEngine::getInstance();
   toolbar = tb;
   eventsHandler = eh;
+  renderEngine = &re;
 }
 
 App::~App() {
@@ -63,6 +66,7 @@ void App::draw() {
 
     eventsHandler.handleMouse(&event, &ch);
     eventsHandler.handleKeyEvents(&toolbar, &event, &ch, &flag);
+    renderEngine->handler();
   }
 
   delwin(mainWin);
